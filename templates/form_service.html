@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{ service.name }} | {{ BRAND_NAME }}</title></head>
+<body class="customer-workspace">
+{% include 'customer_sidebar.html' %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/admin.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/customer-pages.css') }}">
+<main class="customer-content"><div class="container" style="max-width:850px">
+<a href="{{ url_for('customer_dashboard.customer_dashboard') }}">&larr; Back to services</a>
+<header class="customer-page-heading mt-4"><p class="customer-eyebrow">APPLICATION SERVICE</p><h1>{{ service.name }}</h1><p>Complete the details below. You can submit now, even if a price has not been set.</p></header>
+<div class="card"><div class="card-body">
+<img src="{{ service.image_url }}" alt="{{ service.name }}" width="320" height="180" style="max-width:100%;object-fit:contain;border-radius:12px" class="mb-4">
+<p>Price: <strong>{{ 'GHS %.2f'|format(service.price) if service.price else 'Admin will provide a quote' }}</strong> <span class="text-muted">&middot; Wallet: GHS {{ '%.2f'|format(balance) }}</span></p>
+{% if error %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endif %}
+{% if not enabled %}<div class="alert alert-warning">This service is not yet available for purchase.</div>{% endif %}
+{% if service.notes %}<aside class="alert alert-info" style="white-space:pre-line;overflow-wrap:anywhere"><strong>Please note</strong><br>{{ service.notes }}</aside>{% endif %}
+<form method="post" id="application-form">
+<input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="request_token" value="{{ request_token }}"><input type="hidden" name="version" value="{{ version }}">
+{% for field in service.form_fields %}{% if loop.changed(field.section|default('')) and field.section %}<h2 class="fs-5 mt-4 mb-3">{{ field.section }}</h2>{% endif %}<div class="mb-3"><label class="form-label" for="{{ field.key }}">{{ field.label }}</label><input class="form-control" id="{{ field.key }}" name="{{ field.key }}" value="{{ values.get(field.key,'') }}" maxlength="500" required></div>{% endfor %}
+<p class="text-muted small">Submitting does not charge your wallet. Track your application, review its quote, pay, and message our team in My Purchases.</p>
+<div class="mb-4 p-3" style="border:1px solid #D99A24;border-radius:12px">
+  <input class="form-check-input me-2" type="checkbox" id="data-consent" name="data_consent" value="yes" required aria-describedby="data-consent-details" {% if values.get('data_consent') == 'yes' %}checked{% endif %}>
+  <label class="form-check-label fw-semibold" for="data-consent">I confirm that I consent to share my details with King Ollies.</label>
+  <p id="data-consent-details" class="small mt-2 mb-0">{{ consent_text }}</p>
+</div>
+<button class="btn btn-primary" type="submit" {% if not enabled %}disabled{% endif %}>Submit application</button>
+<a class="btn btn-outline-primary" href="{{ url_for('deposit.deposit_page') }}">Add money</a>
+</form></div></div></div></main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>document.getElementById('application-form').addEventListener('submit',function(){this.querySelector('button[type=submit]').disabled=true;});</script>
+</body></html>

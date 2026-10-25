@@ -1,0 +1,8 @@
+/* Shared, readable policy content for homepage and signup dialogs. */
+.legal-copy { line-height: 1.8; overflow-wrap: anywhere; text-align: left; }
+.legal-copy h3 { font-size: 1.12rem; line-height: 1.4; color: #F4C84B; margin: 1.8rem 0 .65rem; }
+.legal-copy p { margin: 0 0 1rem; }
+.legal-copy a { color: #F4C84B; text-decoration: underline; text-underline-offset: .2em; }
+.legal-copy a:focus-visible { outline: 2px solid #F4C84B; outline-offset: 4px; }
+#tosModal.modal .modal-content, #privacyModal.modal .modal-content { background: #1A1A1E; color: #F8F7F3; border: 1px solid #57504a; }
+#tosModal.modal .modal-body, #privacyModal.modal .modal-body { padding: clamp(1rem, 4vw, 2rem); }

@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ page_title }}</title><meta name="description" content="{{ description }}"><link rel="canonical" href="{{ canonical }}">
+<meta property="og:type" content="website"><meta property="og:title" content="{{ page_title }}"><meta property="og:description" content="{{ description }}"><meta property="og:url" content="{{ canonical }}"><meta property="og:image" content="{{ service.image_url if service and service.image_url else BRAND_LOGO_URL }}">
+<link rel="icon" href="{{ BRAND_LOGO_URL }}"><link rel="stylesheet" href="/static/css/home.css">
+<script type="application/ld+json">{{ schema|tojson }}</script></head><body>
+<header class="site-header"><nav class="wrap navigation" aria-label="Main navigation"><a class="brand" href="/"><img src="{{ BRAND_LOGO_URL }}" width="46" height="46" alt=""><span>King Ollies</span></a><a href="{{ url_for('public_services.directory') }}">All services</a></nav></header>
+<main class="wrap section">
+{% if service %}
+<p class="eyebrow">KING OLLIE'S · GHANA</p><h1>{{ service.name }}</h1><p>{{ description }}</p>
+{% if service.image_url %}<img src="{{ service.image_url }}" alt="{{ service.name }}" width="640" height="360" style="object-fit:contain;max-width:100%;height:auto;max-height:360px;margin:24px 0;border-radius:16px">{% endif %}
+<h2>How to get started</h2><p>Contact King Ollies to discuss {{ service.name }}, confirm the current options and price, and find out what information is required.</p>
+{% if service.status != 'OPEN' or service.availability != 'AVAILABLE' %}<p>This service is currently unavailable for online purchase. Contact us for availability updates.</p>{% endif %}
+<div class="actions"><a class="button" href="{{ enquiry_url }}">Enquire on WhatsApp</a><a class="button secondary" href="{{ url_for('customer_dashboard.customer_dashboard') }}">Open customer dashboard</a></div>
+<p>WhatsApp: <a href="https://wa.me/233556531766">+233 55 653 1766</a></p>
+{% else %}<p class="eyebrow">EVERYDAY SERVICES. ENDLESS POSSIBILITIES.</p><h1>King Ollies services in Ghana</h1><p>{{ description }}</p><div class="services-grid">
+{% for item in services %}<article class="service-card">{% if item.image_url %}<img class="service-cover" src="{{ item.image_url }}" alt="{{ item.name }}" loading="lazy" width="640" height="360">{% endif %}<h2>{{ item.name }}</h2><p>{{ item.description }}</p><a class="card-link" href="{{ item.path }}">View service details &rarr;</a></article>{% else %}<p>Contact us on <a href="https://wa.me/233556531766">WhatsApp</a> for available services.</p>{% endfor %}</div>{% endif %}
+</main><footer class="wrap footer"><a href="/">King Ollies home</a> &middot; <a href="{{ url_for('public_services.directory') }}">Explore all services</a></footer></body></html>

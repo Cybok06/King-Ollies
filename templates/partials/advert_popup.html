@@ -1,0 +1,8 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/adverts.css') }}">
+<dialog id="advert-popup" class="advert-popup" aria-labelledby="advert-title" data-page="{{ advert_page }}">
+  <div class="advert-top"><span class="advert-badge">Ad</span><button type="button" id="advert-close" aria-label="Close advert">&times;</button></div>
+  <img id="advert-image" alt="">
+  <div class="advert-copy"><h2 id="advert-title"></h2><p id="advert-text"></p></div>
+  <div class="advert-footer"><span id="advert-position"></span><button type="button" id="advert-previous">Previous</button><button type="button" id="advert-next">Next</button><button type="button" id="advert-okay">Okay</button></div>
+</dialog>
+<script src="{{ url_for('static', filename='js/adverts.js') }}" defer></script>

@@ -1,0 +1,31 @@
+<div class="modal fade" id="checkerBuyModal" tabindex="-1" aria-labelledby="checker-buy-title" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered"><div class="modal-content" style="background:#1A1A1E;color:#F8F7F3">
+<div class="modal-header"><h2 class="modal-title fs-5" id="checker-buy-title">Buy Checkers and Forms</h2><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button></div>
+<form method="post" action="{{ url_for('checker_services.purchase') }}" id="dashboard-checker-form">
+<div class="modal-body">
+<p>Wallet balance: GHS {{ '%.2f'|format(balance) }}</p>
+<input type="hidden" name="csrf" value="{{ checker_csrf }}"><input type="hidden" name="purchase_token" value="{{ checker_purchase_token }}"><input type="hidden" name="version" id="dashboard-checker-version">
+<label for="dashboard-checker-type" class="form-label">Checker or form type</label>
+<select class="form-select mb-3" id="dashboard-checker-type" name="type_id" required><option value="">Select a type</option>
+{% for kind in checker_types %}<option value="{{ kind._id }}" data-version="{{ kind.version }}" data-price="{{ '%.2f'|format(kind.price) }}" {% if not kind.stock_count %}disabled{% endif %}>{{ kind.name }} — GHS {{ '%.2f'|format(kind.price) }}{{ ' (Sold out)' if not kind.stock_count }}</option>{% endfor %}</select>
+{% if not checker_types %}<p class="text-muted">No checker or form types are available yet.</p>{% endif %}
+<p id="dashboard-checker-price" class="fs-5" aria-live="polite">Select a type to see the price.</p>
+<p class="small text-muted">Payment is taken from your wallet. Your delivery message will appear after checkout and be saved in My Purchases.</p>
+</div><div class="modal-footer"><button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" type="submit" id="dashboard-checker-pay" disabled>Pay Now</button></div>
+</form></div></div></div>
+<script>
+(() => {
+  const select = document.getElementById('dashboard-checker-type');
+  const button = document.getElementById('dashboard-checker-pay');
+  function update() {
+    const option = select.selectedOptions[0];
+    document.getElementById('dashboard-checker-version').value = option.dataset.version || '';
+    document.getElementById('dashboard-checker-price').textContent = select.value ? 'Price: GHS ' + option.dataset.price : 'Select a type to see the price.';
+    button.disabled = !select.value;
+  }
+  select.addEventListener('change', update);
+  window.addEventListener('pageshow', update);
+  document.getElementById('dashboard-checker-form').addEventListener('submit', () => { button.disabled = true; button.textContent = 'Processing…'; });
+  update();
+})();
+</script>

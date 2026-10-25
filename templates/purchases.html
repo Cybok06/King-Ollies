@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Purchases</title>
+  <link rel="icon" type="image/png" href="{{ BRAND_LOGO_URL }}">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/theme.css">
+  <style>
+    body {
+      background-color: var(--cd-bg);
+    }
+    .message-card {
+      background: white;
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 6px rgb(var(--cd-deep-rgb) / 0.05);
+      transition: transform 0.2s ease;
+    }
+    .message-card:hover {
+      transform: translateY(-2px);
+    }
+    .checker-type {
+      font-weight: bold;
+      font-size: 0.85rem;
+      padding: 4px 8px;
+      border-radius: 6px;
+      color: white;
+    }
+    .checker-type.wassce {
+      background-color: var(--cd-primary);
+    }
+    .checker-type.bece {
+      background-color: var(--cd-accent);
+    }
+    .message-text {
+      font-size: 0.95rem;
+      white-space: pre-wrap;
+    }
+    .purchase-time {
+      font-size: 0.8rem;
+      color: gray;
+    }
+  </style>
+</head>
+<body class="customer-workspace customer-page-purchases">
+  {% include 'customer_sidebar.html' %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/customer-pages.css') }}">
+  <div class="customer-content customer-page-content">
+<div class="container py-4">
+      
+
+  <header class="customer-page-heading"><p class="customer-eyebrow">YOUR PURCHASES</p><h1>My checker and form purchases</h1><p>Open your purchased checker or form to view and copy its delivery details.</p><a class="btn btn-primary" href="{{ url_for('checker_services.purchase') }}">Open Checkers and Forms <i class="bi bi-arrow-right"></i></a></header>
+
+  {% for category,message in get_flashed_messages(with_categories=true) %}<div class="alert alert-{{ category }}" role="alert">{{ message }}</div>{% endfor %}
+  <h2 class="fs-4 mb-3">Purchased checkers and forms</h2>
+  {% if purchases %}
+    {% for p in purchases %}
+      <div class="message-card">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="checker-type {{ p.type }}">{{ p.type|upper }}</span>
+          <span class="fw-semibold">{{ "%.2f"|format(p.amount) }} GHS</span>
+        </div>
+        <details class="mt-3"><summary>View message details</summary><div class="message-text mt-3" id="purchase-message-{{ loop.index }}" style="overflow-wrap:anywhere">{{ p.message }}</div><button type="button" class="btn btn-outline-primary mt-3" data-copy-message="purchase-message-{{ loop.index }}">Copy details</button></details>
+        <div class="purchase-time mt-2">
+          Purchased on {{ p.purchased_at.strftime("%Y-%m-%d %H:%M") }}
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="alert alert-info">You have not purchased any checkers or forms yet.</div>
+  {% endif %}
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </div>
+{% if delivery %}
+<dialog id="delivery-dialog" aria-labelledby="delivery-title" style="background:#1A1A1E;color:#F8F7F3;border:1px solid #D99A24;border-radius:16px;padding:24px;width:min(540px,calc(100% - 32px));max-height:85vh;overflow:auto">
+<h2 id="delivery-title" class="fs-4">Purchase successful</h2><p>{{ delivery.type }} &middot; GHS {{ '%.2f'|format(delivery.amount) }}</p><div id="new-delivery-message" class="message-text" style="overflow-wrap:anywhere">{{ delivery.message }}</div><p class="small text-muted mt-3">These details are saved in My Purchases.</p><div class="d-flex gap-2 flex-wrap"><button type="button" class="btn btn-primary" data-copy-message="new-delivery-message">Copy details</button><form method="dialog"><button class="btn btn-outline-primary">Close</button></form></div></dialog>
+<style>#delivery-dialog::backdrop{background:rgba(0,0,0,.75)}</style>
+{% endif %}
+<p id="copy-feedback" class="visually-hidden" role="status" aria-live="polite"></p>
+<script>
+document.querySelectorAll('[data-copy-message]').forEach(button=>button.addEventListener('click',async()=>{
+ const source=document.getElementById(button.dataset.copyMessage);
+ try{await navigator.clipboard.writeText(source.textContent);button.textContent='Copied!';document.getElementById('copy-feedback').textContent='Delivery details copied.';}
+ catch(error){const selection=window.getSelection();const range=document.createRange();range.selectNodeContents(source);selection.removeAllRanges();selection.addRange(range);button.textContent='Text selected ? copy it';document.getElementById('copy-feedback').textContent='Copy was unavailable. The message is selected for manual copying.';}
+}));
+const deliveryDialog=document.getElementById('delivery-dialog');if(deliveryDialog)deliveryDialog.showModal();
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{% if session.get('role') == 'admin' and item.get('provider') == 'nagonu' %}
+<div class="small mt-2" style="overflow-wrap:anywhere">
+<strong>Nagonu: {{ item.get('api_status', 'queued')|replace('_',' ')|title }}</strong>
+{% set response = item.get('api_response') or {} %}
+{% if response.get('reason') %}<div>Response: {{ response.reason|replace('_',' ') }}{% if response.get('http_status') %} · HTTP {{ response.http_status }}{% endif %}{% if response.get('status') %} · Provider status {{ response.status }}{% endif %}</div>{% endif %}
+{% if item.get('provider_reference_id') %}<div>Provider reference: {{ item.provider_reference_id }}</div><div>Provider order: {{ item.provider_request_order_id }}</div>{% endif %}
+{% if item.get('api_status') in ['unknown','submitting','queued'] %}<p>Awaiting confirmation. Do not resubmit; contact support for review.</p>{% elif item.get('api_status') == 'rejected' %}<p>Provider rejected this order. Wallet payments are refunded; store payments require admin refund review.</p>{% endif %}
+{% if session.get('role') == 'admin' and item.get('api_status') in ['unknown','submitting'] %}
+<details><summary>Reconcile with Nagonu</summary><form method="post" action="{{ url_for('nagonu.reconcile',order_id=item.order_id) }}" class="mt-2">
+<input type="hidden" name="csrf" value="{{ nagonu_csrf }}">
+<label class="d-block">Provider reference (for accepted orders)<input class="form-control" name="reference" maxlength="150"></label>
+<label class="d-block">Provider order ID<input class="form-control" name="provider_order_id" maxlength="150"></label>
+<label class="d-block">Review note<textarea class="form-control" name="note" maxlength="1000" required></textarea></label>
+<label class="d-block my-2"><input type="checkbox" name="confirmed" value="yes" required> I checked this order with Nagonu. It is no longer awaiting a response.</label>
+<div class="d-flex gap-2 flex-wrap"><button name="decision" value="accepted" class="btn btn-sm btn-primary">Verify accepted reference</button><button name="decision" value="rejected" class="btn btn-sm btn-outline-danger">Confirmed not accepted</button></div>
+<p>Only confirm rejection after Nagonu confirms no order was accepted. This refunds wallet payment. Store refunds still require review.</p>
+</form></details>
+{% endif %}
+</div>
+{% endif %}

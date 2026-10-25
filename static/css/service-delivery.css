@@ -1,0 +1,10 @@
+/* Shared delivery notes for customer and public-store service cards. */
+.service-delivery-badge{display:flex;align-items:center;gap:10px;margin:10px 0 16px;padding:11px 12px;border:1px solid #f4c84b40;border-radius:12px;background:linear-gradient(120deg,#f4c84b14,#f4c84b06);color:#f4c84b;max-width:100%;box-sizing:border-box}
+.service-delivery-icon{display:grid;place-items:center;flex:0 0 30px;width:30px;height:30px;border-radius:9px;background:#f4c84b18;font-size:16px}
+.service-delivery-copy{display:flex;flex-direction:column;gap:3px;min-width:0;overflow-wrap:anywhere}
+.service-delivery-label{font-size:9px;line-height:1.4;font-weight:700;letter-spacing:.8px;text-transform:uppercase}
+.service-delivery-copy strong{font-size:12px;line-height:1.4;font-weight:700}
+.service-delivery-badge--express{border-color:#80dbb540;background:linear-gradient(120deg,#80dbb514,#80dbb506);color:#80dbb5}
+.service-delivery-badge--express .service-delivery-icon{background:#80dbb518}
+.service-delivery-badge--telecel{border-color:#ff999940;background:linear-gradient(120deg,#ff999914,#ff999906);color:#ff9999}
+.service-delivery-badge--telecel .service-delivery-icon{background:#ff999918}

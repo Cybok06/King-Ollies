@@ -1,0 +1,11 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/legal.css') }}">
+{% for modal, title, partial in [('tosModal', 'Terms of Service', 'legal/terms.html'), ('privacyModal', 'Privacy Policy', 'legal/privacy.html')] %}
+<dialog id="{{ modal }}" aria-labelledby="{{ modal }}Title">
+  <div class="legal-heading">
+    <h2 id="{{ modal }}Title">{{ title }}</h2>
+    <form method="dialog"><button class="icon-button" aria-label="Close {{ title }}">&times;</button></form>
+  </div>
+  <div class="legal-copy">{% include partial %}</div>
+  <form method="dialog"><button class="button secondary">Close</button></form>
+</dialog>
+{% endfor %}

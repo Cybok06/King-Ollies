@@ -1,0 +1,11 @@
+<section class="mb-4" aria-label="Service applications">
+<h2 class="fs-4 mb-3">Service applications</h2>
+<div class="row g-3">
+{% for application in applications %}<div class="col-12 col-lg-6"><article class="card h-100"><div class="card-body">
+<div class="d-flex justify-content-between gap-3 flex-wrap"><h3 class="fs-5">{{ application.service_name }}</h3><span class="badge bg-dark">{{ application.progress_status|default(application.status)|replace('_',' ')|title }}</span></div>
+<p class="small text-muted">Application {{ application._id }}{% if is_admin %}<br>{{ application.customer_name or 'Customer' }}{% endif %}</p>
+<p class="small text-muted">Submitted: {{ application.created_at.strftime('%d %b %Y, %H:%M GMT') if application.created_at else 'Not recorded' }}</p>
+<p>{{ 'GHS %.2f'|format(application.quote_amount) if application.quote_amount else 'Awaiting admin quote' }}</p>
+<a class="btn btn-outline-primary" href="{{ url_for('applications.detail', application_id=application._id|string) }}">{{ 'Review application & messages' if is_admin else 'View application, pay & message' }}</a> <a class="btn btn-outline-primary mt-2 mt-sm-0" href="{{ url_for('applications.detail', application_id=application._id|string) }}#conversation">Open chat</a>
+</div></article></div>{% else %}<div class="col-12"><p class="text-muted">No service applications yet.</p></div>{% endfor %}
+</div></section>

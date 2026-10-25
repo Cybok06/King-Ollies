@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Applications | {{ BRAND_NAME }}</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"><link rel="stylesheet" href="/static/css/theme.css"></head>
+<body class="customer-workspace">{% if is_admin %}{% include 'admin_sidebar.html' %}{% else %}{% include 'customer_sidebar.html' %}{% endif %}
+<link rel="stylesheet" href="/static/css/admin.css"><link rel="stylesheet" href="/static/css/customer-pages.css">
+<main class="customer-content"><div class="container py-4" style="max-width:1100px">
+<header class="customer-page-heading"><p class="customer-eyebrow">SERVICE APPLICATIONS</p><h1>{{ 'All applications' if is_admin else 'My applications' }}</h1><p>Track progress, review payment details and continue your conversations.</p></header>
+<div class="row g-3 mb-4">{% for label,count in [('Ongoing applications',ongoing_count),('Closed applications',closed_count),('Total applications',total_count)] %}<div class="col-12 col-sm-4"><div class="card h-100"><div class="card-body"><p class="text-muted mb-2">{{ label }}</p><strong class="fs-2">{{ count }}</strong></div></div></div>{% endfor %}</div>
+<p class="small text-muted">Ongoing includes applications awaiting a quote, payment, payment review or processing. Delivered, completed, failed, refunded and cancelled applications are closed.</p>
+<div class="row g-3 mb-3">
+  <div class="col-12 col-md-4"><div class="card h-100"><div class="card-body"><p class="text-muted">Total issued invoices</p><strong class="fs-4">GHS {{ '%.2f'|format(issued_total) }}</strong><p class="small text-muted mt-2 mb-0">{{ issued_count }} invoices · latest quote per application</p></div></div></div>
+  <div class="col-12 col-md-4"><div class="card h-100"><div class="card-body"><p class="text-muted">Total paid</p><strong class="fs-4">GHS {{ '%.2f'|format(paid_total) }}</strong><p class="small text-muted mt-2 mb-0">{{ paid_count }} confirmed payments</p></div></div></div>
+  <div class="col-12 col-md-4"><div class="card h-100"><div class="card-body"><p class="text-muted">{{ 'Revenue' if is_admin else 'Net payments' }}</p><strong class="fs-4">GHS {{ '%.2f'|format(revenue) }}</strong><p class="small text-muted mt-2 mb-0">Paid less GHS {{ '%.2f'|format(refunded_total) }} marked refunded</p></div></div></div>
+</div><p class="small text-muted">Totals cover {{ 'all customers’' if is_admin else 'your' }} applications across every page and filter. Uploaded payment proofs count only after admin confirmation.</p>
+<nav class="d-flex flex-wrap gap-2 mb-4" aria-label="Application filters">{% for value,label in [('ongoing','Ongoing'),('closed','Closed'),('all','All')] %}<a class="btn {{ 'btn-primary' if view==value else 'btn-outline-primary' }}" href="{{ url_for('applications.admin_index' if is_admin else 'applications.index',view=value) }}" {% if view==value %}aria-current="page"{% endif %}>{{ label }}</a>{% endfor %}</nav>
+{% include 'application_cards.html' %}
+<nav class="d-flex align-items-center justify-content-between flex-wrap gap-3" aria-label="Application pages">
+  <span class="text-muted">{{ filtered_count }} applications · Page {{ page }} of {{ pages }}</span>
+  <div class="d-flex gap-2">
+  {% if page > 1 %}<a class="btn btn-outline-primary" href="{{ url_for('applications.admin_index' if is_admin else 'applications.index',view=view,page=page-1) }}">Previous</a>{% else %}<button class="btn btn-outline-secondary" disabled>Previous</button>{% endif %}
+  {% if page < pages %}<a class="btn btn-outline-primary" href="{{ url_for('applications.admin_index' if is_admin else 'applications.index',view=view,page=page+1) }}">Next</a>{% else %}<button class="btn btn-outline-secondary" disabled>Next</button>{% endif %}
+  </div>
+</nav>
+</div></main><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script></body></html>

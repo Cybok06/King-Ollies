@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{ service.name }} | {{ BRAND_NAME }}</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"><link rel="stylesheet" href="/static/css/theme.css"></head>
+<body class="customer-workspace">{% if is_admin %}{% include 'admin_sidebar.html' %}{% else %}{% include 'customer_sidebar.html' %}{% endif %}
+<style>.checker-type-card[hidden] { display: none !important; }</style>
+<link rel="stylesheet" href="/static/css/admin.css"><link rel="stylesheet" href="/static/css/customer-pages.css">
+<main class="customer-content"><div class="container py-4" style="max-width:1100px">
+<a href="{{ url_for('admin_services.manage_services') if is_admin else url_for('customer_dashboard.customer_dashboard') }}">&larr; Back to services</a>
+<header class="customer-page-heading mt-4"><p class="customer-eyebrow">DIGITAL SERVICES</p><h1>{{ service.name }}</h1><p>{{ 'Manage types, prices and private delivery messages.' if is_admin else 'Choose a type, review the price and purchase with your wallet. Your message is delivered in My Purchases.' }}</p></header>
+{% for category,message in get_flashed_messages(with_categories=true) %}<div class="alert alert-{{ category }}" role="alert">{{ message }}</div>{% endfor %}
+{% if is_admin %}
+<section class="card mb-4"><div class="card-body"><h2 class="fs-4">Add checker or form type</h2>
+<form method="post"><input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="action" value="add_type">
+<div class="row g-3"><div class="col-md-6"><label class="form-label" for="new-name">Type name</label><input id="new-name" name="name" class="form-control" placeholder="WASSCE, BECE, University forms…" maxlength="100" required></div><div class="col-md-6"><label class="form-label" for="new-price">Price (GHS)</label><input id="new-price" name="price" type="number" min="0.01" max="1000000" step="0.01" class="form-control" required></div></div>
+<label class="my-3"><input type="checkbox" name="enabled" checked> Available to customers</label><br><button class="btn btn-primary">Add type</button></form></div></section>
+{% if kinds %}<form id="type-search-form" class="mb-4" role="search"><label for="type-search" class="form-label">Search types</label><div class="d-flex gap-2"><input id="type-search" type="search" class="form-control" placeholder="Search by type name"><button class="btn btn-primary" type="submit">Search</button></div></form><p id="type-search-empty" class="text-muted" role="status" hidden>No types match your search.</p>{% endif %}
+{% for kind in kinds %}
+<section class="card mb-4 checker-type-card" data-type-name="{{ kind.name|lower }}"><div class="card-body"><div class="d-flex justify-content-between align-items-center gap-3"><div style="min-width:0;overflow-wrap:anywhere"><h2 class="fs-4">{{ kind.name }}</h2><p class="text-muted mb-0">{{ kind.stock|length }} available &middot; {{ kind.sold }} sold</p></div><button class="btn btn-outline-primary type-view-button" type="button" aria-expanded="false" aria-controls="type-details-{{ kind._id }}" aria-label="View {{ kind.name }}">View</button></div>
+<div id="type-details-{{ kind._id }}" class="mt-4" hidden>
+<form method="post"><input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="action" value="edit_type"><input type="hidden" name="type_id" value="{{ kind._id }}"><input type="hidden" name="version" value="{{ kind.version }}">
+<div class="row g-3"><div class="col-md-6"><label for="name-{{ kind._id }}" class="form-label">Type name</label><input id="name-{{ kind._id }}" name="name" class="form-control" maxlength="100" value="{{ kind.name }}" required></div><div class="col-md-6"><label for="price-{{ kind._id }}" class="form-label">Price (GHS)</label><input id="price-{{ kind._id }}" name="price" class="form-control" type="number" min="0.01" max="1000000" step="0.01" value="{{ kind.price }}" required></div></div><label class="my-3"><input type="checkbox" name="enabled" {% if kind.enabled %}checked{% endif %}> Available to customers</label><br><button class="btn btn-outline-primary">Save type</button></form>
+<hr><form method="post"><input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="action" value="add_stock"><input type="hidden" name="type_id" value="{{ kind._id }}"><input type="hidden" name="stock_token" value="{{ kind.stock_token }}">
+<label for="message-{{ kind._id }}" class="form-label">Add one delivery message</label><textarea id="message-{{ kind._id }}" name="message" class="form-control mb-2" rows="4" maxlength="10000" required placeholder="Serial number, PIN, voucher details and instructions"></textarea><p class="small text-muted">Each message is one stock item, delivered privately to one customer after payment. Add another message for each checker or form you have.</p><button class="btn btn-primary">Add stock message</button></form>
+<details class="mt-4"><summary>Manage available messages ({{ kind.stock|length }})</summary>
+{% for item in kind.stock %}<form method="post" class="mt-3 p-3 border rounded"><input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="type_id" value="{{ kind._id }}"><input type="hidden" name="stock_id" value="{{ item._id }}"><label for="stock-{{ item._id }}" class="form-label">Delivery message {{ loop.index }}</label><textarea id="stock-{{ item._id }}" name="message" class="form-control mb-2" rows="3" maxlength="10000" required>{{ item.message }}</textarea><div class="d-flex gap-2 flex-wrap"><button class="btn btn-outline-primary" name="action" value="edit_stock">Save message</button><button class="btn btn-outline-danger" name="action" value="delete_stock" formnovalidate>Remove unsold item</button></div></form>{% endfor %}</details>
+</div></div></section>{% else %}<p class="text-muted">Add your first type above, then add its delivery messages.</p>{% endfor %}
+{% else %}
+<div class="row g-4"><div class="col-md-5"><img src="{{ service.image_url }}" alt="Checkers and Forms" class="img-fluid rounded" style="width:100%;max-height:350px;object-fit:contain"></div><div class="col-md-7"><section class="card"><div class="card-body">
+<h2 class="fs-4">Choose your checker or form</h2><p>Wallet balance: GHS {{ '%.2f'|format(balance) }}</p>
+{% if service.status != 'OPEN' or service.availability != 'AVAILABLE' %}<p class="alert alert-warning">This service is currently unavailable.</p>
+{% elif kinds %}<form method="post" id="purchase-form"><input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="purchase_token" value="{{ purchase_token }}"><input type="hidden" name="version" id="type-version">
+<label for="checker-type" class="form-label">Type</label><select id="checker-type" name="type_id" class="form-select mb-3" required><option value="">Select a type</option>{% for kind in kinds %}<option value="{{ kind._id }}" data-price="{{ '%.2f'|format(kind.price) }}" data-version="{{ kind.version }}" data-stock="{{ kind.stock_count }}" {% if not kind.stock_count %}disabled{% endif %}>{{ kind.name }} — GHS {{ '%.2f'|format(kind.price) }}{{ ' (Sold out)' if not kind.stock_count }}</option>{% endfor %}</select>
+<p id="price-summary" class="fs-5" aria-live="polite">Select a type to see the price.</p><button id="buy-button" class="btn btn-primary w-100" disabled>Pay from wallet</button><p class="small text-muted mt-3">Purchases deliver one message per payment. You can find your purchased details again in My Purchases.</p></form>
+{% else %}<p class="text-muted">No types are available yet. Please check back soon.</p>{% endif %}
+</div></section></div></div>
+{% endif %}</div></main><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>const select=document.getElementById('checker-type');if(select){function update(){const option=select.selectedOptions[0];document.getElementById('type-version').value=option.dataset.version||'';document.getElementById('price-summary').textContent=select.value?'Price: GHS '+option.dataset.price:'Select a type to see the price.';document.getElementById('buy-button').disabled=!select.value||!Number(option.dataset.stock);}select.addEventListener('change',update);update();document.getElementById('purchase-form').addEventListener('submit',()=>document.getElementById('buy-button').disabled=true);}</script>
+<script>
+document.querySelectorAll('.type-view-button').forEach(button => {
+  button.addEventListener('click', () => {
+    const panel = document.getElementById(button.getAttribute('aria-controls'));
+    panel.hidden = !panel.hidden;
+    button.setAttribute('aria-expanded', String(!panel.hidden));
+    button.textContent = panel.hidden ? 'View' : 'Hide';
+    const name = button.closest('.checker-type-card').querySelector('h2').textContent;
+    button.setAttribute('aria-label', (panel.hidden ? 'View ' : 'Hide ') + name);
+  });
+});
+const searchForm = document.getElementById('type-search-form');
+if (searchForm) {
+  const searchInput = document.getElementById('type-search');
+  function filterTypes() {
+    const query = searchInput.value.trim().toLowerCase();
+    let matches = 0;
+    document.querySelectorAll('.checker-type-card').forEach(card => {
+      card.hidden = !card.dataset.typeName.includes(query);
+      if (!card.hidden) matches++;
+    });
+    document.getElementById('type-search-empty').hidden = matches > 0;
+  }
+  searchForm.addEventListener('submit', event => { event.preventDefault(); filterTypes(); });
+  searchInput.addEventListener('input', filterTypes);
+}
+</script>
+</body></html>

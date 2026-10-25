@@ -1,0 +1,506 @@
+[
+  {
+    "category": "regular_packages",
+    "service_name": "AT - iSHare",
+    "network": "AT - iSHare",
+    "offer_id": 24,
+    "package": "1GB",
+    "amount": 3.85
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - iSHare",
+    "network": "AT - iSHare",
+    "offer_id": 25,
+    "package": "2GB",
+    "amount": 7.7
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - iSHare",
+    "network": "AT - iSHare",
+    "offer_id": 26,
+    "package": "3GB",
+    "amount": 11.55
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - iSHare",
+    "network": "AT - iSHare",
+    "offer_id": 27,
+    "package": "4GB",
+    "amount": 15.4
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - iSHare",
+    "network": "AT - iSHare",
+    "offer_id": 28,
+    "package": "5GB",
+    "amount": 19.25
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - iSHare",
+    "network": "AT - iSHare",
+    "offer_id": 29,
+    "package": "6GB",
+    "amount": 23.1
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - iSHare",
+    "network": "AT - iSHare",
+    "offer_id": 30,
+    "package": "7GB",
+    "amount": 26.95
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - iSHare",
+    "network": "AT - iSHare",
+    "offer_id": 31,
+    "package": "8GB",
+    "amount": 30.8
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - iSHare",
+    "network": "AT - iSHare",
+    "offer_id": 32,
+    "package": "9GB",
+    "amount": 34.65
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - iSHare",
+    "network": "AT - iSHare",
+    "offer_id": 33,
+    "package": "10GB",
+    "amount": 38.5
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - iSHare",
+    "network": "AT - iSHare",
+    "offer_id": 34,
+    "package": "12GB",
+    "amount": 46.2
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - iSHare",
+    "network": "AT - iSHare",
+    "offer_id": 35,
+    "package": "15GB",
+    "amount": 57.75
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - iSHare",
+    "network": "AT - iSHare",
+    "offer_id": 37,
+    "package": "20GB",
+    "amount": 77.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - BigTime",
+    "network": "AT - BigTime",
+    "offer_id": 52,
+    "package": "20GB",
+    "amount": 57.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - BigTime",
+    "network": "AT - BigTime",
+    "offer_id": 53,
+    "package": "30GB",
+    "amount": 65.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - BigTime",
+    "network": "AT - BigTime",
+    "offer_id": 54,
+    "package": "40GB",
+    "amount": 80.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - BigTime",
+    "network": "AT - BigTime",
+    "offer_id": 58,
+    "package": "50GB",
+    "amount": 90.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - BigTime",
+    "network": "AT - BigTime",
+    "offer_id": 61,
+    "package": "60GB",
+    "amount": 125.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - BigTime",
+    "network": "AT - BigTime",
+    "offer_id": 24,
+    "package": "70GB",
+    "amount": 142.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - BigTime",
+    "network": "AT - BigTime",
+    "offer_id": 25,
+    "package": "80GB",
+    "amount": 151.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - BigTime",
+    "network": "AT - BigTime",
+    "offer_id": 26,
+    "package": "100GB",
+    "amount": 165.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - BigTime",
+    "network": "AT - BigTime",
+    "offer_id": 27,
+    "package": "200GB",
+    "amount": 310.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AT - BigTime",
+    "network": "AT - BigTime",
+    "offer_id": 28,
+    "package": "250GB",
+    "amount": 405.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AFA TALKTIME",
+    "network": "AFA TALKTIME",
+    "offer_id": 1,
+    "package": "250 mins",
+    "amount": 10.5
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AFA TALKTIME",
+    "network": "AFA TALKTIME",
+    "offer_id": 2,
+    "package": "500 mins",
+    "amount": 21.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AFA TALKTIME",
+    "network": "AFA TALKTIME",
+    "offer_id": 3,
+    "package": "750 mins",
+    "amount": 31.5
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "AFA TALKTIME",
+    "network": "AFA TALKTIME",
+    "offer_id": 4,
+    "package": "1000 mins",
+    "amount": 42.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "MTN EXPRESS",
+    "network": "MTN",
+    "offer_id": 1,
+    "package": "1GB",
+    "amount": 4.2
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "MTN EXPRESS",
+    "network": "MTN",
+    "offer_id": 2,
+    "package": "2GB",
+    "amount": 8.4
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "MTN EXPRESS",
+    "network": "MTN",
+    "offer_id": 3,
+    "package": "3GB",
+    "amount": 12.6
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "MTN EXPRESS",
+    "network": "MTN",
+    "offer_id": 4,
+    "package": "4GB",
+    "amount": 16.8
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "MTN EXPRESS",
+    "network": "MTN",
+    "offer_id": 5,
+    "package": "5GB",
+    "amount": 21.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "MTN EXPRESS",
+    "network": "MTN",
+    "offer_id": 6,
+    "package": "6GB",
+    "amount": 25.2
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "MTN EXPRESS",
+    "network": "MTN",
+    "offer_id": 8,
+    "package": "8GB",
+    "amount": 33.6
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "MTN EXPRESS",
+    "network": "MTN",
+    "offer_id": 10,
+    "package": "10GB",
+    "amount": 42.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "MTN EXPRESS",
+    "network": "MTN",
+    "offer_id": 15,
+    "package": "15GB",
+    "amount": 63.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "MTN EXPRESS",
+    "network": "MTN",
+    "offer_id": 20,
+    "package": "20GB",
+    "amount": 81.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "MTN EXPRESS",
+    "network": "MTN",
+    "offer_id": 14,
+    "package": "25GB",
+    "amount": 101.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "MTN EXPRESS",
+    "network": "MTN",
+    "offer_id": 16,
+    "package": "30GB",
+    "amount": 122.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "MTN EXPRESS",
+    "network": "MTN",
+    "offer_id": 17,
+    "package": "40GB",
+    "amount": 164.0
+  },
+  {
+    "category": "regular_packages",
+    "service_name": "MTN EXPRESS",
+    "network": "MTN",
+    "offer_id": 19,
+    "package": "50GB",
+    "amount": 199.0
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "MTN MASH UP DATA",
+    "network": "MTN",
+    "offer_id": 1,
+    "package": "217GB",
+    "amount": 330.0
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "TELECEL",
+    "network": "TELECEL",
+    "offer_id": 24,
+    "package": "10GB",
+    "amount": 39.5
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "TELECEL",
+    "network": "TELECEL",
+    "offer_id": 25,
+    "package": "15GB",
+    "amount": 58.5
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "TELECEL",
+    "network": "TELECEL",
+    "offer_id": 26,
+    "package": "20GB",
+    "amount": 78.5
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "TELECEL",
+    "network": "TELECEL",
+    "offer_id": 27,
+    "package": "30GB",
+    "amount": 113.5
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "TELECEL",
+    "network": "TELECEL",
+    "offer_id": 28,
+    "package": "40GB",
+    "amount": 150.5
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "TELECEL",
+    "network": "TELECEL",
+    "offer_id": 29,
+    "package": "50GB",
+    "amount": 185.5
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "TELECEL",
+    "network": "TELECEL",
+    "offer_id": 30,
+    "package": "100GB",
+    "amount": 365.5
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "MTN NORMAL",
+    "network": "MTN",
+    "offer_id": 1,
+    "package": "1GB",
+    "amount": 3.98
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "MTN NORMAL",
+    "network": "MTN",
+    "offer_id": 2,
+    "package": "2GB",
+    "amount": 7.99
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "MTN NORMAL",
+    "network": "MTN",
+    "offer_id": 3,
+    "package": "3GB",
+    "amount": 11.99
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "MTN NORMAL",
+    "network": "MTN",
+    "offer_id": 4,
+    "package": "4GB",
+    "amount": 15.99
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "MTN NORMAL",
+    "network": "MTN",
+    "offer_id": 5,
+    "package": "5GB",
+    "amount": 19.9
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "MTN NORMAL",
+    "network": "MTN",
+    "offer_id": 6,
+    "package": "6GB",
+    "amount": 23.99
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "MTN NORMAL",
+    "network": "MTN",
+    "offer_id": 8,
+    "package": "8GB",
+    "amount": 32.0
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "MTN NORMAL",
+    "network": "MTN",
+    "offer_id": 10,
+    "package": "10GB",
+    "amount": 39.99
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "MTN NORMAL",
+    "network": "MTN",
+    "offer_id": 12,
+    "package": "15GB",
+    "amount": 59.7
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "MTN NORMAL",
+    "network": "MTN",
+    "offer_id": 14,
+    "package": "20GB",
+    "amount": 79.9
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "MTN NORMAL",
+    "network": "MTN",
+    "offer_id": 16,
+    "package": "25GB",
+    "amount": 99.0
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "MTN NORMAL",
+    "network": "MTN",
+    "offer_id": 17,
+    "package": "30GB",
+    "amount": 119.0
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "MTN NORMAL",
+    "network": "MTN",
+    "offer_id": 18,
+    "package": "40GB",
+    "amount": 159.0
+  },
+  {
+    "category": "bigtime_packages",
+    "service_name": "MTN NORMAL",
+    "network": "MTN",
+    "offer_id": 19,
+    "package": "50GB",
+    "amount": 199.0
+  }
+]

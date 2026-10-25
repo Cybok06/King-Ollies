@@ -1,0 +1,16 @@
+.data-purchase-modal .modal-content{background:#1a1a1e;color:#f8f7f3;border:1px solid #ffffff20;border-radius:20px}
+.data-purchase-eyebrow{font-size:10px;font-weight:700;letter-spacing:1.5px;color:#f4c84b}
+.data-purchase-tabs{display:flex;gap:5px;padding:5px;border:1px solid #ffffff18;border-radius:12px;background:#111114;margin-bottom:22px}
+.data-purchase-tabs button{flex:1;border:0;border-radius:8px;padding:10px;color:#b8b8bd;background:transparent;font-size:13px;font-weight:600}
+.data-purchase-tabs button.active{background:#d99a24;color:#171208}
+.data-purchase-modal .form-control,.data-purchase-modal .form-select{background-color:#111114;color:#f8f7f3;border-color:#38383e;min-height:48px;font-size:16px}
+.data-purchase-modal .form-control::placeholder{color:#909099}
+.data-purchase-help{font-size:12px;color:#b8b8bd;margin:8px 0 18px;line-height:1.5}
+.data-purchase-summary{display:flex;justify-content:space-between;gap:12px;padding:16px;margin-top:20px;border-radius:12px;background:#f4c84b0d;border:1px solid #f4c84b25;font-size:14px}
+.data-purchase-summary strong{color:#f4c84b}
+.data-purchase-modal .btn{min-height:46px;border-radius:10px;font-weight:600}
+.data-purchase-modal .btn-primary{background:#d99a24;border-color:#d99a24;color:#171208}
+.data-purchase-error{margin:16px 0 0;padding:12px;border:1px solid #ff999940;border-radius:10px;background:#ff99990d;color:#ffb4b4;font-size:13px}
+.data-purchase-result{text-align:center;padding:18px 0}
+.data-purchase-result>i{display:block;font-size:48px;color:#80dbb5;margin-bottom:16px}
+.data-purchase-result p{font-size:14px;color:#b8b8bd;overflow-wrap:anywhere}

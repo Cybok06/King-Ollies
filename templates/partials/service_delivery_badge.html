@@ -1,0 +1,7 @@
+{% set delivery_service = (svc.name or '')|trim|upper %}
+{% if delivery_service in ['MTN NORMAL', 'MTN EXPRESS', 'TELECEL'] %}
+  <div class="service-delivery-badge{{ ' service-delivery-badge--telecel' if delivery_service == 'TELECEL' else (' service-delivery-badge--express' if delivery_service == 'MTN EXPRESS' else '') }}">
+    <span class="service-delivery-icon" aria-hidden="true"><i class="bi {{ 'bi-lightning-charge-fill' if delivery_service in ['MTN EXPRESS', 'TELECEL'] else 'bi-clock' }}"></i></span>
+    <span class="service-delivery-copy">{% if delivery_service == 'TELECEL' %}<strong>Gets Delivered Instantly</strong>{% else %}<span class="service-delivery-label">Get delivered between</span><strong>{{ '5 - 20 mins if Network is Stable' if delivery_service == 'MTN EXPRESS' else '20 minutes to 12 hours' }}</strong>{% endif %}</span>
+  </div>
+{% endif %}

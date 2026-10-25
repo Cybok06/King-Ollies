@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Advert - Admin</title>
+<link rel="stylesheet" href="/static/css/theme.css"><link rel="stylesheet" href="/static/css/adverts.css">
+<style>.advert-admin{max-width:1400px}.advert-panel{background:var(--cd-card,#fff);border:1px solid var(--cd-border,#ddd);border-radius:16px;padding:24px;margin-bottom:24px}.advert-preview-image{max-width:100%;max-height:220px;object-fit:contain}.advert-list-image{width:80px;height:65px;object-fit:contain}.advert-status{font-size:.8rem;font-weight:600}.advert-row{display:flex;gap:16px;border-top:1px solid var(--cd-border,#ddd);padding:18px 0;align-items:center;flex-wrap:wrap}.advert-row-copy{flex:1;min-width:160px}.advert-row-actions{display:flex;gap:6px;flex-wrap:wrap}</style></head>
+<body>{% include 'admin_sidebar.html' %}<main class="customer-content advert-admin">
+<h1>Advert</h1><p>Create popup adverts for your customers and visitors.</p>
+<div id="advert-message" class="alert" role="status" hidden></div>
+<div class="row"><section class="col-lg-5"><div class="advert-panel"><h2 class="h4" id="form-heading">Create advert</h2>
+<form id="advert-form" data-csrf="{{ csrf }}">
+<label class="form-label" for="ad-title">Title</label><input class="form-control mb-3" id="ad-title" required maxlength="160">
+<label class="form-label" for="ad-file">Image</label><input class="form-control" id="ad-file" type="file" accept="image/png,image/jpeg,image/gif"><small class="d-block mb-2">PNG, JPG or GIF. Uploaded through Cloudflare.</small>
+<p id="upload-state" role="status"></p><img id="ad-preview" class="advert-preview-image mb-3" alt="Advert image preview" hidden>
+<label class="form-label" for="ad-text">Extra text (optional)</label><textarea class="form-control mb-3" id="ad-text" rows="4" maxlength="5000"></textarea>
+<fieldset class="mb-3"><legend class="h6">Show on</legend><label class="d-block"><input id="ad-all" type="checkbox"> All pages</label>{% for key,label in pages.items() %}<label class="d-block"><input class="ad-page" type="checkbox" value="{{ key }}"> {{ label }}</label>{% endfor %}</fieldset>
+<fieldset class="mb-3"><legend class="h6">Duration</legend><label class="me-3"><input type="radio" name="duration" value="forever" checked> Forever</label><label><input type="radio" name="duration" value="date"> End date</label><input type="date" id="ad-end" class="form-control mt-2" disabled><small>Shows through the selected end date. Ghana time.</small></fieldset>
+<label class="d-block mb-3"><input id="ad-active" type="checkbox" checked> Active</label>
+<button id="ad-save" class="btn btn-primary" type="submit">Save advert</button> <button id="ad-cancel" class="btn btn-outline-secondary" type="button">Clear / Cancel</button>
+</form></div></section><section class="col-lg-7"><div class="advert-panel"><h2 class="h4">Your adverts</h2><p class="text-muted">Okay hides an advert on that page until the next day, on the same browser.</p><div id="advert-list">Loading adverts…</div></div></section></div>
+</main><dialog id="admin-ad-preview" class="advert-popup" aria-labelledby="preview-title"><div class="advert-top"><span class="advert-badge">Ad</span><button type="button" id="preview-close" aria-label="Close preview">&times;</button></div><img id="preview-image" style="width:100%;max-height:48dvh;object-fit:contain" alt=""><div class="advert-copy"><h2 id="preview-title"></h2><p id="preview-text"></p></div><div class="advert-footer"><button type="button" id="preview-okay">Okay</button></div></dialog>
+<script src="/static/js/admin-adverts.js" defer></script></body></html>

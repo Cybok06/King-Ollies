@@ -1,0 +1,22 @@
+{% if application.payment_mode == 'manual' %}
+<div class="mt-3" style="overflow-wrap:anywhere">
+<h3 class="fs-5">MoMo payment details</h3>
+{% for key,label in [('number','MoMo number'),('network','Network'),('name','Account name')] %}
+<label for="copy-{{ key }}" class="form-label">{{ label }}</label>
+<div class="input-group mb-3"><input id="copy-{{ key }}" class="form-control" readonly value="{{ application.momo[key] }}">{% if key != 'network' %}<button class="btn btn-outline-primary" type="button" data-copy="copy-{{ key }}" aria-label="Copy {{ label }}">Copy</button>{% endif %}</div>
+{% endfor %}
+{% if application.manual_submitted_at %}<a class="btn btn-outline-primary mb-3" target="_blank" rel="noopener" href="{{ url_for('applications.proof',application_id=application._id|string) }}">View uploaded payment proof</a>{% endif %}
+{% if not is_admin and application.status == 'quoted' %}
+{% if application.manual_submitted_at %}<p class="alert alert-warning">Your previous proof was returned for correction. Check the messages before submitting again.</p>{% endif %}
+<form method="post" enctype="multipart/form-data" action="{{ url_for('applications.manual_payment',application_id=application._id|string) }}">
+<input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="quote_version" value="{{ application.quote_version }}">
+<label for="payment-proof" class="form-label">Payment proof</label><input class="form-control mb-2" id="payment-proof" type="file" name="proof" accept="image/jpeg,image/png,image/webp" required>
+<p class="small text-muted">JPG, PNG or WebP, up to 4 MB. Admin will check your receipt before confirming payment.</p>
+<button class="btn btn-primary" type="submit">Upload proof &amp; Mark as Paid</button></form>
+{% elif is_admin and application.status == 'manual_review' %}
+<form method="post" action="{{ url_for('applications.review_manual',application_id=application._id|string) }}">
+<input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="quote_version" value="{{ application.quote_version }}">
+<div class="d-flex flex-wrap gap-2"><button class="btn btn-primary" name="decision" value="confirm">Confirm payment</button><button class="btn btn-outline-primary" name="decision" value="reject">Return for correction</button></div></form>
+{% endif %}
+</div>
+{% endif %}
